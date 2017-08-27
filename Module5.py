@@ -1,3 +1,4 @@
+
 while True:
     ip = input('Enter IP address: ').split('.')
     if len(ip) == 4:
@@ -5,6 +6,7 @@ while True:
         if len(ip) == 4:
             break
     print('Incorrect IPv4 address')
+
 
 if 0 < ip[0] < 224:
     print('Unicast')
