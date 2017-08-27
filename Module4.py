@@ -1,4 +1,4 @@
-from sys import argv
+# from sys import argv
 
 # Task 4.1
 text = ['Network:', 'Mask:']
@@ -20,13 +20,19 @@ bit_mask = ones + zeros
 print(''.join('{:<10}'.format(int(bit_mask[i:i + 8], 2)) for i in range(0, 24+1, 8)))
 print(''.join('{:10}'.format(bit_mask[i:i + 8]) for i in range(0, 24+1, 8)))
 
-print(text[0], '\n')
+print('\n' + text[0], '\n')
 
 # Task 4.1a
 net_address = [int(i) for i in ip_list[0].split('.')]
 mask = list(int(bit_mask[i:i + 8], 2) for i in range(0, 24+1, 8))
 # print(net_address, mask)
-print(''.join('{:10}'.format(str(net_address[i] & mask[i])) for i in range(4)))
+net = tuple(zip(net_address, mask))
+print(''.join('{:<10}'.format(n[0] & n[1]) for n in net))
+print(''.join('{:08b}  '.format(n[0] & n[1]) for n in net))
+# print(''.join('{:10}'.format(str(net_address[i] & mask[i])) for i in range(4)))
+print('\n' + text[1], '\n')
+print(''.join('/{:10}'.format(ip_list[1])))
+print(''.join('{:<10}'.format(b) for b in mask))
 print(''.join('{:08b}  '.format(b) for b in mask))
 
 # Task 4.2
