@@ -1,28 +1,21 @@
 while True:
-    ip_address = input('Enter IP address: ').split('.')
-    if len(ip_address) == 4:
-        ip = tuple(int(i) for i in ip_address if i.isdigit() and 0 <= int(i) <= 255)
+    ip = input('Enter IP address: ').split('.')
+    if len(ip) == 4:
+        ip = tuple(int(i) for i in ip if i.isdigit() and 0 <= int(i) <= 255)
         if len(ip) == 4:
-                break
+            break
     print('Incorrect IPv4 address')
 
-# ip = [int(i) for i in ip_address.split('.')]
-for i in range(4):
-    if 1 <= ip[i] < 224:
-        print('Unicast')
-        break
-    elif 224 <= ip[i] < 240:
-        print('Multicast')
-        break
-    elif ip[i] == 0:
-        if i == 3:
-            print('unassigned')
-    elif ip[i] == 255:
-        if i == 3:
-            print('local broadcast')
-    else:
-        print('unused')
-        break
+if 0 < ip[0] < 224:
+    print('Unicast')
+elif 224 <= ip[0] < 240:
+    print('Multicast')
+elif len(tuple(i for i in ip if i == 0)) == 4:
+    print('unassigned')
+elif len(tuple(i for i in ip if i == 255)) == 4:
+    print('local broadcast')
+else:
+    print('unused')
 
 mac = ['aabb:cc80:7000', 'aabb:dd80:7340', 'aabb:ee80:7000', 'aabb:ff80:7000']
 mac_cisco = [i.replace(':', '.') for i in mac]
