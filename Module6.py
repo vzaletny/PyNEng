@@ -1,9 +1,10 @@
 import pandas as pd
 from sys import argv
+import json
 
 ospf_dict_keys = ('Protocol', 'Prefix', 'AD/Metric', 'Next-Hop', 'Last update', 'Outbound Interface')
 ospf_route_list = []
-with open('c:\Python\ospf.txt', 'r') as f:
+with open('/home/dima/Documents/Python/ospf.txt', 'r') as f:
     for line in f:
         ospf_route = (line.rstrip().replace(',', ' ').split())
         ospf_route[0] = 'OSPF'
@@ -32,6 +33,7 @@ for i in ospf_route_list:
 #     print('{:25} {:20}'.format(key + ':', value))
 #
 # Task 6.2
+
 path = ''.join(argv[1:])
 print(path)
 with open(path, 'r') as f:
@@ -45,7 +47,6 @@ with open(path, 'r') as f:
 # Task 6.3
 ignore = ['duplex', 'alias', 'Current configuration']
 
-import json
 
 to_json = {'trunk': (
         'switchport trunk encapsulation dot1q',
