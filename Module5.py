@@ -1,11 +1,8 @@
 while True:
-    ip_address = input('Enter IP address: ')
-    ip_addr_s = ip_address.split('.')
-    if len(ip_addr_s) == 4:
-        res_address = [int(i) for i in ip_addr_s if i.isdigit()]
-        if len(res_address) == 4:
-            ip = [i for i in res_address if 0 <= i <= 255]
-            if len(ip) == 4:
+    ip_address = input('Enter IP address: ').split('.')
+    if len(ip_address) == 4:
+        ip = tuple(int(i) for i in ip_address if i.isdigit() and 0 <= int(i) <= 255)
+        if len(ip) == 4:
                 break
     print('Incorrect IPv4 address')
 
