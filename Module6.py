@@ -1,3 +1,6 @@
+'''
+Comment for Module 6
+'''
 import pandas as pd
 from sys import argv
 import json
