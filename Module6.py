@@ -1,10 +1,17 @@
+from pydoc import _PlainTextDoc
+
 import pandas as pd
 from sys import argv
 import json
+import platform
 
+if platform.system().lower() == 'windows':
+    ofile = 'c:\Python\ospf.txt '
+else:
+    ofile = '/home/dima/Documents/Python/ospf.txt'
 ospf_dict_keys = ('Protocol', 'Prefix', 'AD/Metric', 'Next-Hop', 'Last update', 'Outbound Interface')
 ospf_route_list = []
-with open('/home/dima/Documents/Python/ospf.txt', 'r') as f:
+with open(ofile, 'r') as f:
     for line in f:
         ospf_route = (line.rstrip().replace(',', ' ').split())
         ospf_route[0] = 'OSPF'
