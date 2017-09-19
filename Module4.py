@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+"""
+Comment for Module 4
+"""
 # from sys import argv
 
 # Task 4.1
@@ -27,8 +31,8 @@ net_address = [int(i) for i in ip_list[0].split('.')]
 mask = list(int(bit_mask[i:i + 8], 2) for i in range(0, 24+1, 8))
 # print(net_address, mask)
 net = tuple(zip(net_address, mask))
-print(''.join('{:<10}'.format(n[0] & n[1]) for n in net))
-print(''.join('{:08b}  '.format(n[0] & n[1]) for n in net))
+print(''.join('{:<10}'.format(n & m) for n, m in net))
+print(''.join('{:08b}  '.format(n & m) for n, m in net))
 # print(''.join('{:10}'.format(str(net_address[i] & mask[i])) for i in range(4)))
 print('\n' + text[1], '\n')
 print(''.join('/{:10}'.format(ip_list[1])))
