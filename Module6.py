@@ -48,7 +48,7 @@ for i in ospf_route_list:
 ignore = ['duplex', 'alias', 'Current configuration']
 path = ''.join(argv[1:])
 print(path)
-with open(path, 'r') as f:
+with open(path, 'r', encoding='utf-8') as f:
     # lines = [line for line in f.read().split('\n') if '!' not in line]
     for line in f:
         # print(line)
@@ -57,7 +57,7 @@ with open(path, 'r') as f:
             print('{}'.format(line.rstrip()))
 
 print('6.2a')
-with open(path, 'r') as f:
+with open(path, 'r', encoding='utf-8') as f:
     for line in f:
         if not line.startswith('!'):
             for i in ignore:
@@ -65,12 +65,12 @@ with open(path, 'r') as f:
                     break
             else:
                 print('{}'.format(line.strip()))
-
-with open(path, 'r') as f:
+print('new 6.2a')
+with open(path, 'r', encoding='utf-8') as f:
     for line in f:
         if not line.startswith('!'):
-            find = all([True if i not in line else False for i in ignore])
-            if find:
+            find_ignor = [i for i in ignore if i in line]
+            if not find_ignor:
                 print('{}'.format(line.strip()))
 
 # 6.2b
