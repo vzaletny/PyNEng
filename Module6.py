@@ -41,6 +41,8 @@ for i in ospf_route_list:
 #
 # Task 6.2
 
+# Task 6.3
+ignore = ['duplex', 'alias', 'Current configuration']
 path = ''.join(argv[1:])
 print(path)
 with open(path, 'r') as f:
@@ -51,8 +53,15 @@ with open(path, 'r') as f:
             # line = line.strip()
             print('{}'.format(line.rstrip()))
 
-# Task 6.3
-ignore = ['duplex', 'alias', 'Current configuration']
+print('6.3')
+with open(path, 'r') as f:
+    for line in f:
+        if not line.startswith('!'):
+            for i in ignore:
+                if i in line:
+                    break
+            else:
+                print(''.join('{}'.format(line.strip())))
 
 
 to_json = {'trunk': (
@@ -74,8 +83,8 @@ to_json = {'trunk': (
 with open('sw_templates.json', 'w') as f:
     f.write(json.dumps(to_json))
 '''
-with open('sw_templates.json', 'w') as f:
-    json.dump(to_json, f, sort_keys=True, indent=4)
+with open('sw_templates.json', 'w', encoding='utf-8') as f:
+    json.dump(to_json, f, sort_keys=True, indent=4, ensure_ascii=False)
 
 with open('sw_templates.json') as f:
     print(f.read())
