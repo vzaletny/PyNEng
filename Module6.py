@@ -1,4 +1,4 @@
-from pydoc import _PlainTextDoc
+# from pydoc import _PlainTextDoc
 
 import pandas as pd
 from sys import argv
@@ -6,12 +6,15 @@ import json
 import platform
 
 if platform.system().lower() == 'windows':
-    ofile = 'c:\Python\ospf.txt '
+    ifile = 'c:\Python\ospf.txt'
+    ofile = 'c:\Python\config_sw1_cleared.txt'
 else:
-    ofile = '/home/dima/Documents/Python/ospf.txt'
+    ifile = '/home/dima/Documents/Python/ospf.txt'
+    ofile = '/home/dima/Documents/Python/config_sw1_cleared.txt'
+
 ospf_dict_keys = ('Protocol', 'Prefix', 'AD/Metric', 'Next-Hop', 'Last update', 'Outbound Interface')
 ospf_route_list = []
-with open(ofile, 'r') as f:
+with open(ifile, 'r') as f:
     for line in f:
         ospf_route = (line.rstrip().replace(',', ' ').split())
         ospf_route[0] = 'OSPF'
@@ -53,7 +56,7 @@ with open(path, 'r') as f:
             # line = line.strip()
             print('{}'.format(line.rstrip()))
 
-print('6.3')
+print('6.2a')
 with open(path, 'r') as f:
     for line in f:
         if not line.startswith('!'):
@@ -61,14 +64,30 @@ with open(path, 'r') as f:
                 if i in line:
                     break
             else:
-                print(''.join('{}'.format(line.strip())))
+                print('{}'.format(line.strip()))
+
+with open(path, 'r') as f:
+    for line in f:
+        if not line.startswith('!'):
+            find = all([True if i not in line else False for i in ignore])
+            if find:
+                print('{}'.format(line.strip()))
+
+# 6.2b
+with open(path, 'r', encoding='utf-8') as src, open(ofile, 'w', encoding='utf-8') as dst:
+    for line in src:
+        for i in ignore:
+            if i in line:
+                break
+        else:
+            dst.write(line)
 
 
 to_json = {'trunk': (
-        'switchport trunk encapsulation dot1q',
-        'switchport mode trunk',
-        'switchport trunk native vlan 999',
-        'switchport trunk allowed vlan'),
+    'switchport trunk encapsulation dot1q',
+    'switchport mode trunk',
+    'switchport trunk native vlan 999',
+    'switchport trunk allowed vlan'),
     'access': (
         'switchport mode access',
         'switchport access vlan',
