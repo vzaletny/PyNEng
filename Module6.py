@@ -98,13 +98,13 @@ except FileNotFoundError:
 try:
     with open(ifile63, 'r', encoding='utf-8') as f:
         for line in f:
-            find_line = [i for i in line.split() if i.isdigit()]
-            if find_line:
+            mac_line = [i for i in line.split() if i.isdigit()]
+            if mac_line:
                 print('   '.join('{:4}'.format(i) for i in line.split() if i != 'DYNAMIC'))
 except FileNotFoundError:
     print('File not found')
 
-# Task 6.3a
+# Task 6.3a, list of lists
 lines = []
 try:
     with open(ifile63, 'r', encoding='utf-8') as f:
@@ -116,6 +116,21 @@ for line in lines:
     line.remove('DYNAMIC')
     print('    '.join(line))
 print(''.join('{}\n'.format('    '.join(line)) for line in lines))
+
+# Task 6.3a simple one list
+lines = []
+try:
+    with open(ifile63, 'r', encoding='utf-8') as f:
+        for line in f:
+            mac_line = [i for i in line.split() if i.isdigit()]
+            if mac_line:
+                lines.append('    '.join('{}'.format(i) for i in line.split() if i != 'DYNAMIC'))
+except FileNotFoundError:
+    print('File not found')
+vlan = '100'
+for line in lines:
+    if vlan in line:
+        print(line)
 
 # Task 6.3b
 while True:
