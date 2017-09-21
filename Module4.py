@@ -1,4 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 Comment for Module 4
 """
@@ -33,7 +35,6 @@ mask = list(int(bit_mask[i:i + 8], 2) for i in range(0, 24+1, 8))
 net = tuple(zip(net_address, mask))
 print(''.join('{:<10}'.format(n & m) for n, m in net))
 print(''.join('{:08b}  '.format(n & m) for n, m in net))
-# print(''.join('{:10}'.format(str(net_address[i] & mask[i])) for i in range(4)))
 print('\n' + text[1], '\n')
 print(''.join('/{:10}'.format(ip_list[1])))
 print(''.join('{:<10}'.format(b) for b in mask))
@@ -71,11 +72,11 @@ device = input('Enter device name: ')
 
 # if device in london_co:
 desc = london_co.get(device, 'Device name not found')
-# print('Enter parameter name (', end='')
 param = ', '.join('{}'.format(par) for par in london_co[device])
 prop = input('Enter parameter name ({}):'.format(param))
 print(london_co.get(device))
 print(london_co.get(device).get(prop.lower(), 'Parameter not found!!!'))
+
 # Task 4.2a
 # if prop in london_co[device]:
 #     print(london_co[device][prop])
