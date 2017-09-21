@@ -19,13 +19,13 @@ def generate_access_config(access):
                        'spanning-tree portfast',
                        'spanning-tree bpduguard enable']
     conf_list = []
-    for key in access.keys():
+    for key, value in access.items():
         conf_list.append('{} {}'.format('interface', key))
-        for command in access_template:
-            if command.endswith('access vlan'):
-                conf_list.append('{} {}'.format(command, access.get(key)))
+        for cmd in access_template:
+            if cmd.endswith('access vlan'):
+                conf_list.append('{} {}'.format(cmd, value))
             else:
-                conf_list.append(command)
+                conf_list.append(cmd)
     return conf_list
 
 

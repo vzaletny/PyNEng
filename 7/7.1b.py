@@ -29,19 +29,17 @@ def generate_access_config(access, psecurity=False):
                      'switchport port-security']
 
     conf_dict = {}
-    conf_list = []
-    for key in access.keys():
-        conf_list.append(f'interface {key}')
+    for key, value in access.items():
+        conf_list = [f'interface {key}']
         for cmd in access_template:
             if cmd.endswith('access vlan'):
-                conf_list.append(f'{cmd} {access.get(key)}')
+                conf_list.append(f'{cmd} {value}')
             else:
                 conf_list.append(cmd)
         if psecurity:
             for cmd in port_security:
                 conf_list.append(cmd)
         conf_dict[key] = conf_list
-        conf_list = []
     return conf_dict
 
 
@@ -51,7 +49,9 @@ access_dict = {'FastEthernet0/12': 10,
                'FastEthernet0/17': 150}
 
 conf = (generate_access_config(access_dict, True))
+print('=' * 45)
 for k, v in conf.items():
-    print(k)
+    print(k, '\n' + '-' * 45)
     for i in v:
         print(i)
+    print('=' * 45)

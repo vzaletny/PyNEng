@@ -27,13 +27,11 @@ def generate_access_config(access, psecurity=False):
                      'switchport port-security']
 
     conf_list = []
-    for key in access.keys():
-        # conf_list.append('{} {}'.format('interface', key))
+    for key, value in access.items():
         conf_list.append(f'interface {key}')
         for cmd in access_template:
             if cmd.endswith('access vlan'):
-                # conf_list.append('{} {}'.format(cmd, access.get(key)))
-                conf_list.append(f'{cmd} {access.get(key)}')
+                conf_list.append(f'{cmd} {value}')
             else:
                 conf_list.append(cmd)
         if psecurity:
