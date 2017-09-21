@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 while True:
     ip = input('Enter IP address: ').split('.')
