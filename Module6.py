@@ -108,14 +108,11 @@ except FileNotFoundError:
 try:
     with open(ifile63, 'r', encoding='utf-8') as f:
         lines = [line.split() for line in f.read().split('\n') if len(line.strip()) > 0 and line.split()[0].isdigit()]
-        print(lines)
-        lines = [line.remove('DYNAMIC') for line in lines]
-        print(lines)
+        for line in lines:
+            line.remove('DYNAMIC')
         lines.sort()
         for line in lines:
-            # if line[0] == '100':
-            if line:
-                print(line)
+            print('    '.join(line))
 except FileNotFoundError:
     print('File not found')
 
