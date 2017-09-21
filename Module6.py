@@ -10,10 +10,14 @@ import platform
 
 if platform.system().lower() == 'windows':
     ifile = 'c:\Python\ospf.txt'
-    ofile = 'c:\Python\config_sw1_cleared.txt'
+    ifile62 = 'c:\Python\config_sw1.txt'
+    ofile62 = 'c:\Python\config_sw1_cleared.txt'
+    ofile62c = 'c:\Python\config_sw1_cleared62c.txt'
 else:
     ifile = '/home/dima/Documents/Python/ospf.txt'
-    ofile = '/home/dima/Documents/Python/config_sw1_cleared.txt'
+    ifile62 = '/home/dima/Documents/Python/config_sw1.txt'
+    ofile62 = '/home/dima/Documents/Python/config_sw1_cleared.txt'
+    ofile62c = '/home/dima/Documents/Python/config_sw1_cleared62c.txt'
 
 ospf_dict_keys = ('Protocol', 'Prefix', 'AD/Metric', 'Next-Hop', 'Last update', 'Outbound Interface')
 ospf_route_list = []
@@ -49,7 +53,6 @@ for i in ospf_route_list:
 
 
 path = ''.join(argv[1:])
-print(path)
 with open(path, 'r', encoding='utf-8') as f:
     for line in f:
         if not line.startswith('!'):
@@ -58,7 +61,7 @@ with open(path, 'r', encoding='utf-8') as f:
 # Task 6.2a
 print('6.2a')
 ignore = ['duplex', 'alias', 'Current configuration']
-with open(path, 'r', encoding='utf-8') as f:
+with open(ifile62, 'r', encoding='utf-8') as f:
     for line in f:
         if not line.startswith('!'):
             for i in ignore:
@@ -68,22 +71,28 @@ with open(path, 'r', encoding='utf-8') as f:
                 print('{}'.format(line.strip()))
 
 print('new 6.2a')
-with open(path, 'r', encoding='utf-8') as f:
+with open(ifile62, 'r', encoding='utf-8') as f:
     for line in f:
         if not line.startswith('!'):
-            find_ignor = [i for i in ignore if i in line]
-            if not find_ignor:
+            find_ignore = [i for i in ignore if i in line]
+            if not find_ignore:
                 print('{}'.format(line.strip()))
 
 # Task 6.2b
-with open(path, 'r', encoding='utf-8') as src, open(ofile, 'w', encoding='utf-8') as dst:
+with open(ifile62, 'r', encoding='utf-8') as src, open(ofile62, 'w', encoding='utf-8') as dst:
     for line in src:
-        for i in ignore:
-            if i in line:
-                break
-        else:
+        find_ignore = [i for i in ignore if i in line]
+        if not find_ignore:
             dst.write(line)
 
+# Task 6.2c
+args = argv[1:]
+
+with open(path, 'r', encoding='utf-8') as src, open(ofile62, 'w', encoding='utf-8') as dst:
+    for line in src:
+        find_ignore = [i for i in ignore if i in line]
+        if not find_ignore:
+            dst.write(line)
 # Task 6.3
 
 # Test JSON
