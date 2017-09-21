@@ -28,6 +28,7 @@ def generate_access_config(access, psecurity=False):
                      'switchport port-security violation restrict',
                      'switchport port-security']
 
+    conf_dict = {}
     conf_list = []
     for key in access.keys():
         conf_list.append(f'interface {key}')
@@ -39,7 +40,9 @@ def generate_access_config(access, psecurity=False):
         if psecurity:
             for cmd in port_security:
                 conf_list.append(cmd)
-    return conf_list
+        conf_dict[key] = conf_list
+        conf_list = []
+    return conf_dict
 
 
 access_dict = {'FastEthernet0/12': 10,
@@ -48,5 +51,7 @@ access_dict = {'FastEthernet0/12': 10,
                'FastEthernet0/17': 150}
 
 conf = (generate_access_config(access_dict, True))
-for line in conf:
-    print(line)
+for k, v in conf.items():
+    print(k)
+    for i in v:
+        print(i)
