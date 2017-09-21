@@ -37,8 +37,7 @@ def generate_access_config(access, psecurity=False):
             else:
                 conf_list.append(cmd)
         if psecurity:
-            for cmd in port_security:
-                conf_list.append(cmd)
+            conf_list.extend(port_security)
         conf_dict[key] = conf_list
     return conf_dict
 
