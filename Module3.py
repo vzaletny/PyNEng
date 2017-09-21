@@ -56,6 +56,7 @@ print(NAT.replace('Fast', 'Gigabit'))
 
 # Task 3.7
 MAC = "AAAA:BBBB:CCCC"
+print('MAC')
 print(' '.join('{:08b}'.format(int(mac, 16)) for mac in MAC.replace(':', '')))
 # print(bin(int('0x' + MAC[:4] + MAC[5:9] + MAC[10:], 16)))
 

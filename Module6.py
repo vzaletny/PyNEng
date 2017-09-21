@@ -105,16 +105,39 @@ except FileNotFoundError:
     print('File not found')
 
 # Task 6.3a
+lines = []
 try:
     with open(ifile63, 'r', encoding='utf-8') as f:
         lines = [line.split() for line in f.read().split('\n') if len(line.strip()) > 0 and line.split()[0].isdigit()]
-        for line in lines:
-            line.remove('DYNAMIC')
-        lines.sort()
-        for line in lines:
-            print('    '.join(line))
 except FileNotFoundError:
     print('File not found')
+lines.sort()
+for line in lines:
+    line.remove('DYNAMIC')
+    print('    '.join(line))
+print(''.join('{}\n'.format('    '.join(line)) for line in lines))
+
+# Task 6.3b
+while True:
+    vlan = input('Enter VLAN number: ')
+    if vlan.isdigit():
+        vlan = str(vlan)
+        lines = []
+        try:
+            with open(ifile63, 'r', encoding='utf-8') as f:
+                lines = [line.split() for line in f.read().split('\n') if
+                         len(line.strip()) > 0 and line.split()[0].isdigit()]
+        except FileNotFoundError:
+            print('File not found')
+            break
+        lines.sort()
+        for line in lines:
+            line.remove('DYNAMIC')
+            # print(''.join('{}'.format('    '.join(line)) for i in line if i == vlan))
+            if vlan in line:
+                print('    '.join(line))
+        break
+    print('Incorrect VLAN number. VLAN must be a number!')
 
 print()
 # Test JSON
