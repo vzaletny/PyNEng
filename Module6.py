@@ -11,11 +11,13 @@ import platform
 if platform.system().lower() == 'windows':
     ifile = 'c:\Python\ospf.txt'
     ifile62 = 'c:\Python\config_sw1.txt'
+    ifile63 = 'c:\Python\CAM_table.txt'
     ofile62 = 'c:\Python\config_sw1_cleared.txt'
     ofile62c = 'c:\Python\config_sw1_cleared62c.txt'
 else:
     ifile = '/home/dima/Documents/Python/ospf.txt'
     ifile62 = '/home/dima/Documents/Python/config_sw1.txt'
+    ifile63 = '/home/dima/Documents/Python/CAM_table.txt'
     ofile62 = '/home/dima/Documents/Python/config_sw1_cleared.txt'
     ofile62c = '/home/dima/Documents/Python/config_sw1_cleared62c.txt'
 
@@ -28,7 +30,6 @@ with open(ifile, 'r') as f:
         ospf_route.remove('via')
         ospf_route[2] = ospf_route[2][1:-1]
         ospf_route_list.append(ospf_route)
-
 
 pd.set_option('display.width', None)
 table = pd.DataFrame(ospf_route_list)
@@ -50,9 +51,7 @@ for i in ospf_route_list:
 #     print('{:25} {:20}'.format(key + ':', value))
 #
 # Task 6.2
-
-
-path = ''.join(argv[1:])
+path = ''.join(argv[1])
 with open(path, 'r', encoding='utf-8') as f:
     for line in f:
         if not line.startswith('!'):
@@ -86,15 +85,28 @@ with open(ifile62, 'r', encoding='utf-8') as src, open(ofile62, 'w', encoding='u
             dst.write(line)
 
 # Task 6.2c
-args = argv[1:]
+try:
+    with open(argv[1], 'r', encoding='utf-8') as src, open(argv[2], 'w', encoding='utf-8') as dst:
+        for line in src:
+            find_ignore = [i for i in ignore if i in line]
+            if not find_ignore:
+                dst.write(line)
+except FileNotFoundError:
+    print('File not found')
 
-with open(path, 'r', encoding='utf-8') as src, open(ofile62, 'w', encoding='utf-8') as dst:
-    for line in src:
-        find_ignore = [i for i in ignore if i in line]
-        if not find_ignore:
-            dst.write(line)
 # Task 6.3
+try:
+    with open(ifile63, 'r', encoding='utf-8') as f:
+        for line in f:
+            find_line = [i for i in line if i.isdigit() and line.startswith(tuple(str(range(10))))]
+            if find_line:
+                # print(''.join('{}'.format(line.split())))
+                print(' '.join('{}'.format(i) for i in line.split() if i != 'DYNAMIC'))
+                pass
+except FileNotFoundError:
+    print('File not found')
 
+print()
 # Test JSON
 to_json = {'trunk': (
     'switchport trunk encapsulation dot1q',
