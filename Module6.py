@@ -136,7 +136,6 @@ for line in lines:
 while True:
     vlan = input('Enter VLAN number: ')
     if vlan.isdigit():
-        vlan = str(vlan)
         lines = []
         try:
             with open(ifile63, 'r', encoding='utf-8') as f:
