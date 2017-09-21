@@ -98,11 +98,24 @@ except FileNotFoundError:
 try:
     with open(ifile63, 'r', encoding='utf-8') as f:
         for line in f:
-            find_line = [i for i in line if i.isdigit() and line.startswith(tuple(str(range(10))))]
+            find_line = [i for i in line.split() if i.isdigit()]
             if find_line:
-                # print(''.join('{}'.format(line.split())))
-                print(' '.join('{}'.format(i) for i in line.split() if i != 'DYNAMIC'))
-                pass
+                print('   '.join('{:4}'.format(i) for i in line.split() if i != 'DYNAMIC'))
+except FileNotFoundError:
+    print('File not found')
+
+# Task 6.3a
+try:
+    with open(ifile63, 'r', encoding='utf-8') as f:
+        lines = [line.split() for line in f.read().split('\n') if len(line.strip()) > 0 and line.split()[0].isdigit()]
+        print(lines)
+        lines = [line.remove('DYNAMIC') for line in lines]
+        print(lines)
+        lines.sort()
+        for line in lines:
+            # if line[0] == '100':
+            if line:
+                print(line)
 except FileNotFoundError:
     print('File not found')
 
