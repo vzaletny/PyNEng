@@ -24,7 +24,7 @@ def get_int_vlan_map(conf_file):
     Ограничение: Все задания надо выполнять используя только пройденные темы.
 
     :param conf_file:
-    :return:
+    :return: 2 dictionary
     """
     try:
         with open(conf_file, 'r', encoding='utf-8') as f:
