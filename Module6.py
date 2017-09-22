@@ -115,6 +115,7 @@ lines.sort()
 for line in lines:
     line.remove('DYNAMIC')
     print('    '.join(line))
+print('Double Join and List of lists')
 print(''.join('{}\n'.format('    '.join(line)) for line in lines))
 
 # Task 6.3a simple one list
