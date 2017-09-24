@@ -41,20 +41,17 @@ def config_to_dict(conf_file):
             conf_dict = {}
             cmd1 = ''
             cmd2 = ''
-            convert = False
             for line in f:
-                if line.strip() and not ('!' in line) and not ignore_command(line, ignore_list):
+                if line.strip() and line[1] != 1 or not line.startswith('!') and not ignore_command(line, ignore_list):
                     if not line.startswith(' '):
-                        cmd1 = line.strip()
+                        cmd1 = line.rstrip()
                         conf_dict[cmd1] = []
-                        convert = False
                     elif line.startswith('  '):
-                        if not convert:
+                        if type(conf_dict[cmd1]) is list:
                             conf_dict[cmd1] = {k: [] for k in conf_dict[cmd1]}
-                            convert = True
-                        conf_dict[cmd1][cmd2].append(line.strip())
+                        conf_dict[cmd1][cmd2].append(line.rstrip())
                     else:
-                        cmd2 = line.strip()
+                        cmd2 = line.rstrip()
                         conf_dict[cmd1].append(cmd2)
             return conf_dict
     except FileNotFoundError:
