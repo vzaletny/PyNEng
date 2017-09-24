@@ -24,7 +24,7 @@ def write_to_file(conf_file, config):
     Write interfaces configuration to file
     :param conf_file: Path to destination file
     :param config: Interfaces configuration list
-    :return:
+    :return: Nothing
     """
     with open(conf_file, 'w', encoding='utf-8') as dst:
         dst.writelines(line + '\n' for line in config)
@@ -33,8 +33,9 @@ def write_to_file(conf_file, config):
 def main():
     args = get_args()
     trunk, access = get_int_vlan_map(args.ifile)
-    write_to_file(args.ofile, generate_trunk_config(trunk))
-    write_to_file(args.ofile, generate_access_config(access, psecurity=True))
+    conf_list = generate_access_config(access, psecurity=True)
+    conf_list.extend(generate_trunk_config(trunk))
+    write_to_file(args.ofile, conf_list)
     print('Interfaces configuration file has been done')
 
 
