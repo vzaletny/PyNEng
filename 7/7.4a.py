@@ -42,21 +42,23 @@ def config_to_dict(conf_file):
             cmd1 = ''
             cmd2 = ''
             for line in f:
-                if line.strip() and line[1] != 1 or not line.startswith('!') and not ignore_command(line, ignore_list):
+                line = line.rstrip()
+                if line.strip() and not line.startswith('!') and \
+                        not ignore_command(line, ignore_list) and line[1] != '!':
                     if not line.startswith(' '):
-                        cmd1 = line.rstrip()
+                        cmd1 = line
                         conf_dict[cmd1] = []
-                    elif line.startswith('  '):
+                    elif line.startswith('  ') and line[2].isalpha():
                         if type(conf_dict[cmd1]) is list:
                             conf_dict[cmd1] = {k: [] for k in conf_dict[cmd1]}
-                        conf_dict[cmd1][cmd2].append(line.rstrip())
-                    else:
-                        cmd2 = line.rstrip()
+                        conf_dict[cmd1][cmd2].append(line)
+                    elif line.startswith(' ') and line[1].isalpha():
+                        cmd2 = line
                         conf_dict[cmd1].append(cmd2)
             return conf_dict
     except FileNotFoundError:
         print('File not found')
-        return
+        raise exit(-1)
 
 
 def ignore_command(command, ignore):
@@ -73,6 +75,6 @@ def ignore_command(command, ignore):
     return any(word in command for word in ignore)
 
 
-ifile = './PyNEng/7/config_r1.txt'
+ifile = 'config_r1.txt'
 config_dict = config_to_dict(ifile)
 pprint(config_dict, width=120)

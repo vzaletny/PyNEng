@@ -46,10 +46,10 @@ def get_int_vlan_map(conf_file):
             return trunk_dict, access_dict
     except FileNotFoundError:
         print('File not found')
-        return
+        raise exit(-1)
 
 
-ifile = './PyNEng/7/config_sw1.txt'
+ifile = 'config_sw1.txt'
 dict1, dict2 = get_int_vlan_map(ifile)
 pprint(dict1)
 pprint(dict2)
