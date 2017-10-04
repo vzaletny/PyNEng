@@ -76,7 +76,7 @@ def main():
     with open(args.ifile, 'r', encoding='utf-8') as f:
         cdp_neighbors = parse_cdp_neighbors(f.read())
     pprint(cdp_neighbors)
-    print('Parsing has completed')
+    print('Parsing completed')
 
 
 # Start program
